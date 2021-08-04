@@ -1,9 +1,15 @@
 import { useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { userLogin } from '../../services/api'
+import { onLoginAction } from '../../store/actions'
+import './Login.css'
 
-const Login = ({changeUserLogged}) => {
+const Login = () => {
   const usernameRef = useRef()
   const passwordRef = useRef()
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -18,7 +24,7 @@ const Login = ({changeUserLogged}) => {
         password: passwordRef.current.value
       })
         .then(userData => {
-          changeUserLogged(userData)
+          dispatch(onLoginAction(userData))
         })
         .catch(statusError => {
           if (statusError === 404) {
@@ -29,13 +35,19 @@ const Login = ({changeUserLogged}) => {
         })
     }
   }
-
   return (
     <>
       <section className='d-flex flex-md justify-content-center login'>
         <div className='card'>
-          <h2>Welcome back!</h2>
+          <h2>Bienvenido nuevamente!</h2>
           <section className='card-body'>
+            {user ? (
+              <div className='alert alert-success' role='alert'>
+                Inicio de session correcto
+              </div>
+            ) : (
+              ''
+            )}
             <form>
               <label htmlFor='inputEmail'>Username</label>
               <br />
@@ -58,6 +70,10 @@ const Login = ({changeUserLogged}) => {
               <button className='btn btn-primary' onClick={handleSubmit}>
                 Login
               </button>
+              <br />
+              <br />
+              <p>¿No tienes cuenta?</p>
+              <Link to='/signup'>Registrate</Link>
             </form>
           </section>
         </div>
