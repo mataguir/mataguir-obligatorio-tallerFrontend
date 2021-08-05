@@ -1,4 +1,4 @@
-const SERVICE_BASE_URL = 'https://destinos.develotion.com/';
+const SERVICE_BASE_URL = 'https://destinos.develotion.com';
 const LOCAL_STORAGE_KEY = 'obligatorioUser';
 
 const userLogin = (userData) => {
@@ -54,11 +54,15 @@ const register = (data) => {
 const getTodos = async (id) => {
   // Async await
   try {
-    const response = await fetch(`${SERVICE_BASE_URL}/todos?userId=${id}`);
+    const response = await fetch(`${SERVICE_BASE_URL}/paquetes.php}`,{headers: {
+      "apiKey" : "799d61af8050e6e6af00dc0d140f980b",
+      "Content-type": "application/json"        
+    }});
     if (response.status === 200) {
       return response.json();
     }
   } catch (error) {
+    alert(error);
     return Promise.reject({
       message: 'Ha ocurrido un error al retornar los todos',
     });
