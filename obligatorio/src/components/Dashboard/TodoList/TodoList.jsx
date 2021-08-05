@@ -6,17 +6,17 @@ const TodoList = ({ todos, deleteTodo, setTodoStatus }) => {
       <thead>
         <tr>
           <th>#</th>
-          <th>Title</th>
+          <th>Nombre</th>
           <th>Completed</th>
           <th>Borrar</th>
         </tr>
       </thead>
       <tbody>
-        {todos.map(({ id, title, completed }) => (
+        {todos.map(({ id, nombre, completed }) => (
           <TodoItemList
             id={id}
             key={`todo-${id}`}
-            title={title}
+            nombre={nombre}
             completed={completed}
             deleteTodo={deleteTodo}
             setTodoStatus={setTodoStatus}
