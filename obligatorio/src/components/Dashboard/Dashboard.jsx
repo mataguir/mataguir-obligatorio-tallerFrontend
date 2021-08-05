@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { deleteTodo, getTodos } from '../../services/api'
+import { deleteTodo, getTodos, registerCompra, regsiterCompra } from '../../services/api'
 import './Dashboard.css'
 import BarChart from './Stats/Charts/Chart'
 import Metrics from './Stats/Metrics/Metrics'
 import TodoList from './TodoList/TodoList'
+import Venta from './Venta/Venta'
 
 const Dashboard = () => {
   const [todos, setTodos] = useState([])
@@ -33,6 +34,11 @@ const Dashboard = () => {
       .catch(e => alert(e))
   }
 
+  const compraTodo = id => {
+    registerCompra(id)
+
+  }
+
   const setTodoStatus = (action, id) => {
     const newList = todos.map(todo => {
       if (todo.id === id) {
@@ -57,6 +63,8 @@ const Dashboard = () => {
     <div className='container-fluid dashboard'>
       <h1>Dashboard</h1>
       <Metrics completed={getCompleted()} incompleted={getIncompleted()} />
+      <br />
+      <Venta todos={todos} compraTodo={compraTodo} idUser={user.id}/>
       <br />
       <div className='row'>
         <div className='col-12'>

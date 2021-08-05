@@ -1,4 +1,4 @@
-const TodoItemList = ({ id, title, completed, deleteTodo, setTodoStatus }) => {
+const TodoItemList = ({ id, nombre, completed, deleteTodo, setTodoStatus }) => {
   const onHandleClick = () => {
     deleteTodo(id)
   }
@@ -10,7 +10,7 @@ const TodoItemList = ({ id, title, completed, deleteTodo, setTodoStatus }) => {
   return (
     <tr>
       <th scope='row'>{id}</th>
-      <td>{title}</td>
+      <td>{nombre}</td>
       <td>
         <input type='checkbox' checked={completed} onChange={onHandleChange} />
       </td>
