@@ -1,9 +1,9 @@
-import { useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { userLogin } from '../../services/api'
-import { onLoginAction } from '../../store/actions'
-import './Login.css'
+import { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { userLogin, LOCAL_STORAGE_KEY } from '../../services/api';
+import { onLoginAction } from '../../store/actions';
+import './Login.css';
 
 const Login = () => {
   const usernameRef = useRef()
@@ -20,11 +20,12 @@ const Login = () => {
       alert('Debes completar el campo password')
     } else {
       userLogin({
-        username: usernameRef.current.value,
+        usuario: usernameRef.current.value,
         password: passwordRef.current.value
       })
         .then(userData => {
           dispatch(onLoginAction(userData))
+          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userData.apiKey));//PREGUNTAR SI ESTÁ BIEN PONER ESTO ACA
         })
         .catch(statusError => {
           if (statusError === 404) {

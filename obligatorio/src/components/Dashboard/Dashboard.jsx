@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { deleteTodo, getTodos, registerCompra, regsiterCompra } from '../../services/api'
+import { deleteTodo, getPaquetes, registrarCompra } from '../../services/api'
 import './Dashboard.css'
 import BarChart from './Stats/Charts/Chart'
 import Metrics from './Stats/Metrics/Metrics'
@@ -14,7 +14,7 @@ const Dashboard = () => {
   useEffect(() => {
     ;(async () => {
       try {
-        const response = await getTodos(user.id)
+        const response = await getPaquetes(user.id)
         setTodos(response)
       } catch (error) {
         alert(error)
@@ -35,7 +35,7 @@ const Dashboard = () => {
   }
 
   const compraTodo = id => {
-    registerCompra(id)
+    registrarCompra(id)
 
   }
 
