@@ -5,10 +5,11 @@ const TodoList = ({ todos, deleteTodo, setTodoStatus }) => {
     <table className='table'>
       <thead>
         <tr>
-          <th>#</th>
-          <th>Nombre</th>
-          <th>Completed</th>
-          <th>Borrar</th>
+          <th>Cliente</th>
+          <th>Paquete</th>
+          <th>Adultos</th>
+          <th>Niños</th>
+          <th>Precio final</th>
         </tr>
       </thead>
       <tbody>
