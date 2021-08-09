@@ -1,90 +1,79 @@
-import { useRef, useState } from 'react'
+import { useRef, useState } from 'react';
+import './Venta.css';
 
-const Venta = ({ todos, compraTodo, idUser }) => {
-    const slcPaqueteRef = useRef()
-    const nombreRef = useRef()
-    const cantMenRef = useRef()
-    const cantMayRef = useRef()
+const Venta = ({ paquetes, comprarPaquete, idUser }) => {
+    const idPaqueteRef = useRef();
+    const nombreRef = useRef();
+    const cantMenRef = useRef();
+    const cantMayRef = useRef();
 
-    const [isAlertVisible, setAlertVisibillity] = useState(false)
-    const [message, setMessage] = useState('')
-    const [alertClass, setAlertClass] = useState('')
+    const [isAlertVisible, setAlertVisibillity] = useState(false);
+    const [message, setMessage] = useState('');
+    const [alertClass, setAlertClass] = useState('');
 
     const onCompraClick = async e =>{
-        if (cantMayRef.current.value + cantMenRef.current.value <= 10){
-            try {
-                await compraTodo({
-                    idVendedor: idUser,
-                    nombreCliente: nombreRef.current.value,
-                    idPaquete: 1,
-                    cantidadMayores: cantMayRef.current.value,
-                    cantidadMenores: cantMenRef.current.value                    
-                })
-                setMessage('Compra realizada con exito')
-                setAlertClass('success')
-                setAlertVisibillity(true)
-        
-                
-              } catch (error) {
-                setMessage(error.message)
-                setAlertClass('danger')
-                setAlertVisibillity(true)                
-              }
+      debugger
+      if (nombreRef.current.value != '' || cantMayRef.current.value + cantMenRef.current.value != '') {
+        if (Number(cantMayRef.current.value) + Number(cantMenRef.current.value) <= 10){
+          try {
+            await comprarPaquete({
+              idVendedor: idUser,
+              nombreCliente: nombreRef.current.value,
+              idPaquete: idPaqueteRef.current.value,
+              cantidadMayores: cantMayRef.current.value,
+              cantidadMenores: cantMenRef.current.value                    
+            });
+            setMessage('Compra realizada con exito');
+            setAlertClass('success');
+            setAlertVisibillity(true);
+          }
+          catch (error) {
+            setMessage(error.message);
+            setAlertClass('danger');
+            setAlertVisibillity(true)   ;             
+          }
         }
         else{
-            alert("Corrobore los dato ingresados")
+            alert("La cantidad de personas sumadas no puede ser mayor a 10");
         }
-        // compraTodo(slcPaquete)
+      }
+      else {
+        alert("No puede haber campos vacíos");
+      }
     }
 
     return (
-        <div>
-            <label htmlFor="txtNombre">Ingrese el nombre</label>
-            
-            <input type="text" id="txtNombre" ref={nombreRef}/>
-            <br />
-            <label htmlFor="slcPaquete">Seleccione el paquete</label>
-           
-            <select id="slcPaquete" ref={slcPaqueteRef}>
-                {todos.map(({id, nombre}) =>(
-                    <option value={`${id}`}>${nombre}</option>
+      <section className='d-flex flex-md justify-content-center venta'>
+        <div className='card'>
+          <h2>Vender Paquete</h2>
+          <section className='card-body'>
+            <form>
+              <label htmlFor="txtNombre">Ingrese el nombre del cliente</label>
+                <br />
+                <input type="text" id="txtNombre" className='form-control' ref={nombreRef}/>
+                <br />
+                <label htmlFor="slcPaquete">Seleccione el paquete</label>
+                <br />
+                <select id="slcPaquete" className='form-control' ref={idPaqueteRef}>
+                  {paquetes.map(({id, nombre}) =>(
+                    <option value={`${id}`}>{nombre}</option>
                   
-                ))}
-            </select>
-            <br />
-            <label htmlFor="cantMayores">Ingrese cantidad de mayores</label>
-            <input type="number" id="cantMayores" ref={cantMayRef}/>
-            <br />
-            <label htmlFor="cantMenores">Ingrese cantidad de menores</label>
-            <input type="number" id="cantMenores" ref={cantMenRef}/>
-            <br />
-            <button onClick={onCompraClick}>Comprar</button>
+                  ))}
+                </select>
+                <br />
+                <label htmlFor="cantMayores">Ingrese cantidad de mayores</label>
+                <br />
+                <input type="number" id="cantMayores" className='form-control' ref={cantMayRef}/>
+                <br />
+                <label htmlFor="cantMenores">Ingrese cantidad de menores</label>
+                <br />
+                <input type="number" id="cantMenores" className='form-control' ref={cantMenRef}/>
+                <br />
+                <button className='btn btn-primary' onClick={onCompraClick}>Comprar</button>
+            </form>
+          </section>
         </div>
-        
-
-      /*<table className='table'>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Completed</th>
-            <th>Borrar</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          {todos.map(({ id, nombre, completed }) => (
-            <TodoItemList
-              id={id}
-              key={`todo-${id}`}
-              nombre={nombre}
-              completed={completed}
-              deleteTodo={deleteTodo}
-              setTodoStatus={setTodoStatus}
-            />
-          ))}
-        </tbody>
-      </table>*/
+      </section>
     )
   }
   

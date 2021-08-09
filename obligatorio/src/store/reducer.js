@@ -2,7 +2,7 @@
 import { ON_LOGIN, ON_LOGOUT } from './constants';
 const initialState = {
   user: null,
-  todos: [],
+  paquetes: [],
 };
 
 // Creo mi función reductora, con el state inicial
