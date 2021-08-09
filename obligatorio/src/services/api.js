@@ -1,5 +1,6 @@
 const SERVICE_BASE_URL = 'https://destinos.develotion.com';
 const LOCAL_STORAGE_KEY = 'obliUserKey';
+const LOCAL_STORAGE_ID = 'userId';//REVISAR
 
 //LOGIN
 const userLogin = (userData) => {
@@ -50,23 +51,32 @@ const register = (data) => {
 
 //OBTENER TODOS LOS PAQUETES
 const getPaquetes = async (id) => {
-  // Async await
-  try {
+  // return fetch(`${SERVICE_BASE_URL}/paquetes.php`,{
+  //   method: 'GET',
+  //   headers: {
+  //     'apikey': localStorage.getItem(LOCAL_STORAGE_KEY),
+  //     'Content-Type': 'application/json'
+  //   } 
+  // })  
+  // .then((response) => {
+  //   if (response.status === 200) {
+  //     return response.json();
+  //   } else {
+  //     return Promise.reject({
+  //       message: 'Ha ocurrido un error al retornar los paquetes',
+  //     });
+  //   }
+  // });
 
-    /*fetch(`${SERVICE_BASE_URL}/paquetes.php}`, {
-            headers: {
-                'apikey': "799d61af8050e6e6af00dc0d140f980b",
-                'Content-type': 'application/json'
-            }
-        }).then(response => response.json())
-            .then(data => console.log(data));*/
-    const response = await fetch(`${SERVICE_BASE_URL}/paquetes.php}`, {
-      headers: {
-        "apiKey" : localStorage.getItem(LOCAL_STORAGE_KEY),
-        "Content-Type": "application/json"
-      }
-    });
-    if (response.status === 200) {//ok
+  try {
+    const response = await fetch(`${SERVICE_BASE_URL}/paquetes.php`, {
+         method: 'GET',
+         headers: {
+           'apikey': localStorage.getItem(LOCAL_STORAGE_KEY),
+           'Content-Type': 'application/json'
+         }
+    })
+    if (response.status === 200) {
       return response.json();
     }
     else if (response.status === 401) {//Se venció la api key
@@ -74,25 +84,37 @@ const getPaquetes = async (id) => {
       localStorage.removeItem(LOCAL_STORAGE_KEY);
     }
   } catch (error) {
-    alert(error);
-    return Promise.reject({
-      message: 'Ha ocurrido un error al retornar los paquetes',
-    });
+      return Promise.reject({
+        message: 'Ha ocurrido un error al retornar los paquetes',
+      });
   }
-  // Promises
-  /*
-  return fetch(`${SERVICE_BASE_URL}/todos?userId=${id}`).then((response) => {
-    if (response.status === 200) {
+};
+
+//OBTENER VENTAS
+const getVentas = (userId) => {
+  debugger
+  return fetch(`${SERVICE_BASE_URL}/ventas.php?idVendedor=${userId}`,{
+    method: 'GET',
+    headers: {
+      'apikey': localStorage.getItem(LOCAL_STORAGE_KEY),
+      'Content-Type': 'application/json'
+    } 
+  })  
+  .then((response) => {
+    if (response.status === 200) {//ok
       return response.json();
-    } else {
+    } 
+    else if (response.status === 401) {//Se venció la api key
+      //MANDAR A LA PANTALLA DE LOGIN
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+    }
+    else {//error
       return Promise.reject({
         message: 'Ha ocurrido un error al retornar los todos',
       });
     }
-  });*/
-};
-
-//FALTA LLAMADA A LA API PARA OBTENER VENTAS DE UN VENDEDOR
+  });
+}
 
 //AGREGAR VENTA
 const registrarCompra = (data) => {
@@ -105,6 +127,10 @@ const registrarCompra = (data) => {
       if (response.status === 200) {
         // Si es 200 hago el response.json para obtener el body de la respuesta
         return response.json();
+      }
+      else if (response.status === 401) {//Se venció la api key
+        //MANDAR A LA PANTALLA DE LOGIN
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
       } else {
         // En caso de recibir otro status code, hago un reject y devuelvo un mensaje y el código de status recibido
         return Promise.reject({
@@ -120,19 +146,6 @@ const registrarCompra = (data) => {
     });
 };
 
-const deleteTodo = async (id) => {
-  // Aca iria al servidor con el verbo DELETE para borrar el item
-  /*
-  const response = await fetch(`${SERVICE_BASE_URL}/todos?userId=${id}`, {
-    method: 'DELETE',
-    headers: {
-      apikey: "sddgdgdg"
-    }
-  });
-  */
-  return Promise.resolve();
-};
-
 const onRemoveUser = () => {
   localStorage.removeItem(LOCAL_STORAGE_KEY);
 };
@@ -144,9 +157,9 @@ const getUserFromLocalStorage = () => {
 export {
   userLogin,
   register,
+  getVentas,
   registrarCompra,
   getPaquetes,
-  deleteTodo,
   onRemoveUser,
   getUserFromLocalStorage,
   LOCAL_STORAGE_KEY
