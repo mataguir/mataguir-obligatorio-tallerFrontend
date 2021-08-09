@@ -10,17 +10,17 @@ import Venta from './Venta/Venta';
 const Dashboard = () => {
   const [ventas, setVentas] = useState([])
   const [paquetes, setPaquetes] = useState([]);
+  const [precios, setPrecios] = useState([]);
   const user = useSelector(state => state.user);
 
   useEffect(() => {
     ;(async () => {
       try {
-        debugger
         const response = await getVentas(user.id);
         debugger
-        setVentas(response);
+        setVentas(response.ventas);
       } catch (error) {
-        alert(error+"get ventas");
+        alert(error);
       }
     })()
   }, [])
@@ -30,25 +30,58 @@ const Dashboard = () => {
       try {
         const response = await getPaquetes(user.id);
         setPaquetes(response.destinos);
+        debugger
       } catch (error) {
-        alert(error+"get paquetes");
+        alert(error);
       }
     })()
   }, [])
 
-  const comprarPaquete = id => {
-    registrarCompra(id);
+
+  // useEffect((id) => {
+  //   ;(async () => {
+  //     try {
+  //       const response = await registrarCompra(id);
+  //       debugger
+  //       setVentas(response.ventas);
+  //     } catch (error) {
+  //       alert(error+"SET ventas");
+  //     }
+  //   })()
+  // }, [])
+
+  const comprarPaquete = paquete => {
+    try {
+      const response =  registrarCompra(paquete);
+    } 
+    catch (error) {
+      alert(error);
+    }
   }
 
-  const setVentaStatus = (action, id) => {
-    const newList = ventas.map(venta => {
-      if (venta.id === id) {
-        venta.completed = action
+  const calcularPrecioF = () => {
+    let pre = [];
+    for (let i = 0; i < ventas.length; i++) {
+      for (let j = 0; j < paquetes.length; j++) {
+        if (ventas[i].id_paquete === paquetes[j].id) {
+          pre.push(ventas[i].cantidad_mayores * paquetes[j].precio_mayor + ventas[i].cantidad_menores * paquetes[j].precio_menor);
+        }
       }
-      return venta
-    })
-    setVentas(newList)
+    }
+    setPrecios(pre);
+    return precios;
   }
+
+  // const setVentaStatus = (action, id) => {
+  //   debugger
+  //   const newList = ventas.map(venta => {
+  //     if (venta.id === id) {
+  //       venta.completed = action
+  //     }
+  //     return venta
+  //   })
+  //   setVentas(newList)
+  // }
 
   // const getCompleted = () => {
   //   const completed = todos.filter(todo => todo.completed)
@@ -71,7 +104,7 @@ const Dashboard = () => {
         <div className='col-12'>
           <VentasList
             ventas={ventas}
-            setVentaStatus={setVentaStatus}
+            precioFinal={calcularPrecioF}
           />
         </div>
       </div>

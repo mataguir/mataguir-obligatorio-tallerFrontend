@@ -92,7 +92,6 @@ const getPaquetes = async (id) => {
 
 //OBTENER VENTAS
 const getVentas = (userId) => {
-  debugger
   return fetch(`${SERVICE_BASE_URL}/ventas.php?idVendedor=${userId}`,{
     method: 'GET',
     headers: {
@@ -110,7 +109,7 @@ const getVentas = (userId) => {
     }
     else {//error
       return Promise.reject({
-        message: 'Ha ocurrido un error al retornar los todos',
+        message: 'Ha ocurrido un error al retornar las ventas',
       });
     }
   });
@@ -118,8 +117,12 @@ const getVentas = (userId) => {
 
 //AGREGAR VENTA
 const registrarCompra = (data) => {
-  return fetch(`${SERVICE_BASE_URL}/ventas.php}`, {
+  return fetch(`${SERVICE_BASE_URL}/ventas.php`, {
     method: 'POST',
+    headers: {
+      'apikey': localStorage.getItem(LOCAL_STORAGE_KEY),
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify(data),
   })
     .then((response) => {

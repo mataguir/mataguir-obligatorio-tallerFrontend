@@ -1,16 +1,13 @@
-const VentaItemList = ({ id, nombre, completed, setVentaStatus }) => {
+const VentaItemList = ({  id, cliente, paquete, cantAdultos, cantNinos, precio }) => {
 
-  const onHandleChange = e => {
-    const action = e.target.checked
-    setVentaStatus(action, id)
-  }
   return (
     <tr>
       <th scope='row'>{id}</th>
-      <td>{nombre}</td>
-      <td>
-        <input type='checkbox' checked={completed} onChange={onHandleChange} />
-      </td>
+      <td>{cliente}</td>
+      <td>{paquete}</td>
+      <td>{cantAdultos}</td>
+      <td>{cantNinos}</td>
+      <td>{precio}</td>
       <td>
       </td>
     </tr>
