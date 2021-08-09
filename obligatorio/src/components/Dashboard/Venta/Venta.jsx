@@ -19,18 +19,20 @@ const Venta = ({ paquetes, comprarPaquete, idUser }) => {
             await comprarPaquete({
               idVendedor: idUser,
               nombreCliente: nombreRef.current.value,
-              idPaquete: idPaqueteRef.current.value,
-              cantidadMayores: cantMayRef.current.value,
-              cantidadMenores: cantMenRef.current.value                    
+              idPaquete: Number(idPaqueteRef.current.value),
+              cantidadMayores: Number(cantMayRef.current.value),
+              cantidadMenores: Number(cantMenRef.current.value)                    
             });
-            setMessage('Compra realizada con exito');
-            setAlertClass('success');
-            setAlertVisibillity(true);
+            debugger
+            // setMessage('Compra realizada con exito');
+            // setAlertClass('success');
+            // setAlertVisibillity(true);
           }
           catch (error) {
-            setMessage(error.message);
-            setAlertClass('danger');
-            setAlertVisibillity(true)   ;             
+            debugger
+            // setMessage(error.message);
+            // setAlertClass('danger');
+            // setAlertVisibillity(true);             
           }
         }
         else{
@@ -78,4 +80,3 @@ const Venta = ({ paquetes, comprarPaquete, idUser }) => {
   }
   
   export default Venta
-  

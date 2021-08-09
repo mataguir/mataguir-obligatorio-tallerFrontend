@@ -25,7 +25,7 @@ const Login = () => {
       })
         .then(userData => {
           dispatch(onLoginAction(userData))
-          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userData.apiKey));//PREGUNTAR SI ESTÁ BIEN PONER ESTO ACA
+          localStorage.setItem(LOCAL_STORAGE_KEY, userData.apiKey);//PREGUNTAR SI ESTÁ BIEN PONER ESTO ACA
         })
         .catch(statusError => {
           if (statusError === 404) {

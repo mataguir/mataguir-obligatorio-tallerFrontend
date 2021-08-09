@@ -1,6 +1,6 @@
 import VentaItemList from './VentaItemList/VentaItemList';
 
-const VentasList = ({ ventas, setVentaStatus }) => {
+const VentasList = ({ ventas, precioFinal }) => {
   debugger
   return (
     <table className='table'>
@@ -15,17 +15,15 @@ const VentasList = ({ ventas, setVentaStatus }) => {
         </tr>
       </thead>
       <tbody>
-        {ventas.map(({ id, cliente, paquete, cantAdultos, cantNinos, precioFinal }) => (
+        {ventas.map(({ id, nombre_cliente, id_paquete, cantidad_mayores, cantidad_menores }) => (
           <VentaItemList
             id={id}
             key={`venta-${id}`}
-            cliente={cliente}
-            paquete={paquete}
-            cantAdultos={cantAdultos}
-            cantNinos={cantNinos}
-            cantNinos={cantNinos}
+            cliente={nombre_cliente}
+            paquete={id_paquete}
+            cantAdultos={cantidad_mayores}
+            cantNinos={cantidad_menores}
             precioFinal={precioFinal}
-            setVentaStatus={setVentaStatus}
           />
         ))}
       </tbody>
