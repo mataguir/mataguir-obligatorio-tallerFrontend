@@ -1,6 +1,8 @@
+import { onLogoutAction } from '../store/actions';
+import { useDispatch, useSelector } from 'react-redux';
+
 const SERVICE_BASE_URL = 'https://destinos.develotion.com';
 const LOCAL_STORAGE_KEY = 'obliUserKey';
-const LOCAL_STORAGE_ID = 'userId';//REVISAR
 
 //LOGIN
 const userLogin = (userData) => {
@@ -51,23 +53,6 @@ const register = (data) => {
 
 //OBTENER TODOS LOS PAQUETES
 const getPaquetes = async (id) => {
-  // return fetch(`${SERVICE_BASE_URL}/paquetes.php`,{
-  //   method: 'GET',
-  //   headers: {
-  //     'apikey': localStorage.getItem(LOCAL_STORAGE_KEY),
-  //     'Content-Type': 'application/json'
-  //   } 
-  // })  
-  // .then((response) => {
-  //   if (response.status === 200) {
-  //     return response.json();
-  //   } else {
-  //     return Promise.reject({
-  //       message: 'Ha ocurrido un error al retornar los paquetes',
-  //     });
-  //   }
-  // });
-
   try {
     const response = await fetch(`${SERVICE_BASE_URL}/paquetes.php`, {
          method: 'GET',
@@ -132,7 +117,7 @@ const registrarCompra = (data) => {
         return response.json();
       }
       else if (response.status === 401) {//Se venció la api key
-        //MANDAR A LA PANTALLA DE LOGIN
+        Logout();
         localStorage.removeItem(LOCAL_STORAGE_KEY);
       } else {
         // En caso de recibir otro status code, hago un reject y devuelvo un mensaje y el código de status recibido
@@ -149,13 +134,18 @@ const registrarCompra = (data) => {
     });
 };
 
-const onRemoveUser = () => {
-  localStorage.removeItem(LOCAL_STORAGE_KEY);
-};
+const Logout = () => {
+  const dispatch = useDispatch();
+  dispatch(onLogoutAction());
+}
 
-const getUserFromLocalStorage = () => {
-  return localStorage.getItem(LOCAL_STORAGE_KEY);
-};
+// const onRemoveUser = () => {
+//   localStorage.removeItem(LOCAL_STORAGE_KEY);
+// };
+
+// const getUserFromLocalStorage = () => {
+//   return localStorage.getItem(LOCAL_STORAGE_KEY);
+// };
 
 export {
   userLogin,
@@ -163,7 +153,7 @@ export {
   getVentas,
   registrarCompra,
   getPaquetes,
-  onRemoveUser,
-  getUserFromLocalStorage,
+  // onRemoveUser,
+  // getUserFromLocalStorage,
   LOCAL_STORAGE_KEY
 };

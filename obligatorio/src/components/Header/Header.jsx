@@ -5,8 +5,8 @@ import logo from './logo.svg';
 import { LOCAL_STORAGE_KEY } from '../../services/api';
 
 const Header = () => {
-  const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
 
   const onLogout = () => {
     localStorage.removeItem(LOCAL_STORAGE_KEY);//borro la api key del local storage
