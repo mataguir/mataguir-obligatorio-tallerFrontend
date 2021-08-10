@@ -10,6 +10,8 @@ import VentasList from './VentaList/VentasList';
 import Venta from './Venta/Venta';
 import { useDispatch } from 'react-redux';
 import { onLogoutAction } from '../../store/actions';
+import DestinosPasaj from './Destinos/DetinosPasaj/DestinosPasaj';
+import 'bootstrap-css-only';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -133,14 +135,17 @@ const Dashboard = () => {
         paquetes={paquetes}
       />
       <MetricsVentas completed={cantVentas()}/>
-      <div className='row col-5 chart'>
-        <h4>Personas por Destino</h4>
-        <BarChart destinos={perDest().destinos} cantPasajeros={perDest().pasajeros} />
-      </div> 
-      <div className='row col-5 chart'>
-        <h4>Precios Destinos</h4>
-        <BarChart destinos={precioPromedio().destinos} cantPasajeros={precioPromedio().precios} />
-      </div>
+      <div>
+        <div className='row col-12 chart justify-content-around'>
+          <h4 className='col-12'>Personas por Destino</h4>
+          <BarChart className='col-6' destinos={perDest().destinos} cantPasajeros={perDest().pasajeros} />
+          <DestinosPasaj className='col-6' paquetes={perDest().destinos} cantPasaj={perDest().pasajeros}/>
+        </div> 
+        <div className='row col-5 chart'>
+          <h4>Precios Destinos</h4>
+          <BarChart destinos={precioPromedio().destinos} cantPasajeros={precioPromedio().precios} />
+        </div>  
+      </div>      
       <DestinosTop destinosTop={filtrarTop()}/>
       <DestinosProm destinosProm={filtrarProm()}/>
     </div>
