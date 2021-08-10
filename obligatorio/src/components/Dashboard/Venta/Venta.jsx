@@ -7,13 +7,9 @@ const Venta = ({ paquetes, comprarPaquete, idUser }) => {
   const cantMenRef = useRef();
   const cantMayRef = useRef();
 
-  const [isAlertVisible, setAlertVisibillity] = useState(false);
-  const [message, setMessage] = useState('');
-  const [alertClass, setAlertClass] = useState('');
-
   const onCompraClick = async e =>{
     e.preventDefault()
-    if (nombreRef.current.value != '' || cantMayRef.current.value + cantMenRef.current.value != '') {
+    if (nombreRef.current.value != '' || cantMayRef.current.value + cantMenRef.current.value != '') {//validaciones
       if (Number(cantMayRef.current.value) > 0 || Number(cantMenRef.current.value) > 0) {
         if (Number(cantMayRef.current.value) >= 0 && Number(cantMenRef.current.value) >= 0) {
           if (Number(cantMayRef.current.value) + Number(cantMenRef.current.value) <= 10){
@@ -26,14 +22,12 @@ const Venta = ({ paquetes, comprarPaquete, idUser }) => {
                   cantidadMayores: Number(cantMayRef.current.value),
                   cantidadMenores: Number(cantMenRef.current.value)                    
                 });
-                // setMessage('Compra realizada con exito');
-                // setAlertClass('success');
-                // setAlertVisibillity(true);
+                nombreRef.current.value = '';//borro los campos. No es la mejor solucion
+                cantMayRef.current.value = '';
+                cantMenRef.current.value = '';
               }
               catch (error) {
-                // setMessage(error.message);
-                // setAlertClass('danger');
-                // setAlertVisibillity(true);             
+                alert(error);
               }
             }
             else {
@@ -72,7 +66,6 @@ const Venta = ({ paquetes, comprarPaquete, idUser }) => {
               <select id="slcPaquete" className='form-control' ref={idPaqueteRef}>
                 {paquetes.map(({id, nombre}) =>(
                   <option value={`${id}`}>{nombre}</option>
-                
                 ))}
               </select>
               <br />

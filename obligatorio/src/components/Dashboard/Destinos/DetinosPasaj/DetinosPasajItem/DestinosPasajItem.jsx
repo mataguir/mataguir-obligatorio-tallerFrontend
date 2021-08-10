@@ -1,10 +1,9 @@
 const DestinosPasajItem = ({  paquete, clientes}) => {
-
-    return (
-      <tr>
-        <th scope='row'>{paquete}</th>
-        <td>{clientes}</td>     
-      </tr>
-    )
+  return (
+    <tr>
+      <td>{paquete}</td>
+      <td>{clientes}</td>     
+    </tr>
+  )
   }
-  export default DestinosPasajItem
+export default DestinosPasajItem

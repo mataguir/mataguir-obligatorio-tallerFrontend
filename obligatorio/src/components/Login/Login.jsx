@@ -14,7 +14,7 @@ const Login = () => {
   const handleSubmit = e => {
     e.preventDefault()
 
-    if (usernameRef.current.value === '') {
+    if (usernameRef.current.value === '') {//validaciones
       alert('Debes completar el campo username')
     } else if (passwordRef.current.value === '') {
       alert('Debes completar el campo password')
@@ -25,7 +25,7 @@ const Login = () => {
       })
         .then(userData => {
           dispatch(onLoginAction(userData))
-          localStorage.setItem(LOCAL_STORAGE_KEY, userData.apiKey);//PREGUNTAR SI ESTÁ BIEN PONER ESTO ACA
+          localStorage.setItem(LOCAL_STORAGE_KEY, userData.apiKey);
         })
         .catch(statusError => {
           if (statusError === 404) {

@@ -6,7 +6,7 @@ const CantVentas = ({ ventasHechas }) => {
       <div className='col-sm-6'>
         <div className='card'>
           <div className='card-body'>
-            <h5 className='card-title'>Ventas totales</h5>
+            <h5 className='card-title'>Ventas Totales</h5>
             <p className='card-text'>
               <span class='badge bg-success'>{ventasHechas}</span>
             </p>

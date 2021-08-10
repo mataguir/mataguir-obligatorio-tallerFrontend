@@ -58,7 +58,7 @@ const getPaquetes = async (id) => {
            'Content-Type': 'application/json'
          }
     })
-    if (response.status === 200) {
+    if (response.status === 200) {//ok
       return response.json();
     }
     else if (response.status === 401) {//Se venció la api key
@@ -108,16 +108,13 @@ const registrarCompra = (data) => {
     body: JSON.stringify(data),
   })
     .then((response) => {
-      // Verifico el status code de la respuesta, esperando que sea 200
-      if (response.status === 200) {
-        // Si es 200 hago el response.json para obtener el body de la respuesta
+      if (response.status === 200) {//ok
         return response.json();
       }
       else if (response.status === 401) {//Se venció la api key
         localStorage.removeItem(LOCAL_STORAGE_KEY);
         return response.status;
       } else {
-        // En caso de recibir otro status code, hago un reject y devuelvo un mensaje y el código de status recibido
         return Promise.reject({
           message: 'Ha ocurrido un error',
           statusCode: response.status,

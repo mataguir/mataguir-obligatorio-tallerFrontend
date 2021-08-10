@@ -45,7 +45,10 @@ const Dashboard = () => {
   const comprarPaquete = paquete => {
     const response =  registrarCompra(paquete)
     .then(response => {
-      if (response === 401) {
+      if (response.codigo === 200) {
+        alert('Venta Realizada!');
+      }
+      else if (response === 401) {
         dispatch(onLogoutAction());
         alert('Su sesión a expirado. Por favor inicie sesión nuevamente');
       }

@@ -16,7 +16,7 @@ const SignUp = () => {
 
     let wasSuccess = false
 
-    if (userRef.current.value !== '' && passRef.current.value !== '') {
+    if (userRef.current.value !== '' && passRef.current.value !== '') {//validaciones
       try {
         await register({
           usuario: userRef.current.value,
@@ -34,7 +34,7 @@ const SignUp = () => {
         wasSuccess = false
       }
     } else {
-      setMessage('Debes completar los campos obligatorios')
+      setMessage('Debes completar todos los campos')
       setAlertClass('danger')
       setAlertVisibillity(true)
       wasSuccess = false

@@ -15,7 +15,6 @@ const Header = () => {
   return (
     <header className='App-header'>
       <nav className='navbar navbar-dark bg-dark'>
-        {/* eslint-disable-next-line*/}
         <a className='navbar-brand' href='#'>
           <img
             src={logo}
