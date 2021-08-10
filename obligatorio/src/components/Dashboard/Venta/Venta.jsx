@@ -14,27 +14,42 @@ const Venta = ({ paquetes, comprarPaquete, idUser }) => {
   const onCompraClick = async e =>{
     e.preventDefault()
     if (nombreRef.current.value != '' || cantMayRef.current.value + cantMenRef.current.value != '') {
-      if (Number(cantMayRef.current.value) + Number(cantMenRef.current.value) <= 10){
-        try {
-          await comprarPaquete({
-            idVendedor: idUser,
-            nombreCliente: nombreRef.current.value,
-            idPaquete: Number(idPaqueteRef.current.value),
-            cantidadMayores: Number(cantMayRef.current.value),
-            cantidadMenores: Number(cantMenRef.current.value)                    
-          });
-          // setMessage('Compra realizada con exito');
-          // setAlertClass('success');
-          // setAlertVisibillity(true);
+      if (Number(cantMayRef.current.value) > 0 || Number(cantMenRef.current.value) > 0) {
+        if (Number(cantMayRef.current.value) >= 0 && Number(cantMenRef.current.value) >= 0) {
+          if (Number(cantMayRef.current.value) + Number(cantMenRef.current.value) <= 10){
+            if (Number.isInteger(Number(cantMayRef.current.value)) && Number.isInteger(Number(cantMenRef.current.value))) {
+              try {
+                await comprarPaquete({
+                  idVendedor: idUser,
+                  nombreCliente: nombreRef.current.value,
+                  idPaquete: Number(idPaqueteRef.current.value),
+                  cantidadMayores: Number(cantMayRef.current.value),
+                  cantidadMenores: Number(cantMenRef.current.value)                    
+                });
+                // setMessage('Compra realizada con exito');
+                // setAlertClass('success');
+                // setAlertVisibillity(true);
+              }
+              catch (error) {
+                // setMessage(error.message);
+                // setAlertClass('danger');
+                // setAlertVisibillity(true);             
+              }
+            }
+            else {
+              alert("La cantidad de personas debe ser un número entero");
+            }
+          }
+          else{
+              alert("La cantidad de personas sumadas no puede ser mayor a 10");
+          }
         }
-        catch (error) {
-          // setMessage(error.message);
-          // setAlertClass('danger');
-          // setAlertVisibillity(true);             
+        else {
+          alert("La cantidad de personas debe ser positiva");
         }
       }
-      else{
-          alert("La cantidad de personas sumadas no puede ser mayor a 10");
+      else {
+        alert("Ingrese una cantidad de personas");
       }
     }
     else {
@@ -63,11 +78,11 @@ const Venta = ({ paquetes, comprarPaquete, idUser }) => {
               <br />
               <label htmlFor="cantMayores">Ingrese cantidad de mayores</label>
               <br />
-              <input type="number" id="cantMayores" className='form-control' ref={cantMayRef}/>
+              <input type="number" min="0" id="cantMayores" className='form-control' ref={cantMayRef}/>
               <br />
               <label htmlFor="cantMenores">Ingrese cantidad de menores</label>
               <br />
-              <input type="number" id="cantMenores" className='form-control' ref={cantMenRef}/>
+              <input type="number" min="0" id="cantMenores" className='form-control' ref={cantMenRef}/>
               <br />
               <button className='btn btn-primary' onClick={onCompraClick}>Comprar</button>
           </form>
