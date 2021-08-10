@@ -1,18 +1,16 @@
-const DestinosProm = ({ ventas, setDestinoStatus }) => {
-  debugger
+const DestinosProm = ({ destinosProm }) => {
+
   return (
     <table className='table'>
       <thead>
         <tr>
-          <th>#</th>
           <th>Destino</th>
         </tr>
       </thead>
       <tbody>
-        {ventas.map(({ id, destino}) => (
+        {destinosProm.map(({nombre}) => (
           <tr>
-            <th scope='row'>{id}</th>
-            <td>{destino}</td>
+            <td>{nombre}</td>
           </tr>
           ))
         }
