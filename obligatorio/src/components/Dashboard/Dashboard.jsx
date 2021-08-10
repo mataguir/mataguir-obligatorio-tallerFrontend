@@ -5,7 +5,7 @@ import DestinosProm from './Destinos/DestinosProm/DestinosProm';
 import DestinosTop from './Destinos/DestinosTop/DestinosTop';
 import './Dashboard.css';
 import BarChart from './Stats/Charts/Chart';
-import Metrics from './Stats/Metrics/Metrics';
+import MetricsVentas from './Stats/MetricsVentas/MetricsVentas';
 import VentasList from './VentaList/VentasList';
 import Venta from './Venta/Venta';
 
@@ -150,26 +150,24 @@ const Dashboard = () => {
     };
  }
 
+ const cantVentas = () => {
+  return ventas.length;
+}
+
   return (
     <div className='container-fluid dashboard'>
       <h1>Dashboard</h1>
-      {/* <Metrics completed={getCompleted()} incompleted={getIncompleted()} /> */}
-      <br />
       <Venta paquetes={paquetes} comprarPaquete={comprarPaquete} idUser={user.id}/>
-      <br />
-      <div className='row'>
-        <div className='col-12'>
-          <VentasList
-            ventas={ventas}
-            paquetes={paquetes}
-          />
-        </div>
-      </div>
-      <div className='row col-5'>
+      <VentasList
+        ventas={ventas}
+        paquetes={paquetes}
+      />
+      <MetricsVentas completed={cantVentas()}/>
+      <div className='row col-5 chart'>
         <h4>Personas por Destino</h4>
         <BarChart destinos={perDest().destinos} cantPasajeros={perDest().pasajeros} />
       </div> 
-      <div className='row col-5'>
+      <div className='row col-5 chart'>
         <h4>Precios Destinos</h4>
         <BarChart destinos={precioPromedio().destinos} cantPasajeros={precioPromedio().precios} />
       </div>

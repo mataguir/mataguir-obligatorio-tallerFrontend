@@ -6,3 +6,7 @@ div.dashboard h1 {
   margin: 10px;
   text-align: left;
 }
+
+.row.chart {
+  margin: 5% 0;
+}
