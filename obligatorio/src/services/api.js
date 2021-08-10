@@ -1,6 +1,3 @@
-import { onLogoutAction } from '../store/actions';
-import { useDispatch, useSelector } from 'react-redux';
-
 const SERVICE_BASE_URL = 'https://destinos.develotion.com';
 const LOCAL_STORAGE_KEY = 'obliUserKey';
 
@@ -65,8 +62,8 @@ const getPaquetes = async (id) => {
       return response.json();
     }
     else if (response.status === 401) {//Se venció la api key
-      //MANDAR A LA PANTALLA DE LOGIN
       localStorage.removeItem(LOCAL_STORAGE_KEY);
+      return response.status;
     }
   } catch (error) {
       return Promise.reject({
@@ -89,8 +86,8 @@ const getVentas = (userId) => {
       return response.json();
     } 
     else if (response.status === 401) {//Se venció la api key
-      //MANDAR A LA PANTALLA DE LOGIN
       localStorage.removeItem(LOCAL_STORAGE_KEY);
+      return response.status;
     }
     else {//error
       return Promise.reject({
@@ -117,8 +114,8 @@ const registrarCompra = (data) => {
         return response.json();
       }
       else if (response.status === 401) {//Se venció la api key
-        Logout();
         localStorage.removeItem(LOCAL_STORAGE_KEY);
+        return response.status;
       } else {
         // En caso de recibir otro status code, hago un reject y devuelvo un mensaje y el código de status recibido
         return Promise.reject({
@@ -128,24 +125,12 @@ const registrarCompra = (data) => {
       }
     })
     .catch((e) => {
+      debugger
       return Promise.reject({
         message: e.message,
       });
     });
 };
-
-const Logout = () => {
-  const dispatch = useDispatch();
-  dispatch(onLogoutAction());
-}
-
-// const onRemoveUser = () => {
-//   localStorage.removeItem(LOCAL_STORAGE_KEY);
-// };
-
-// const getUserFromLocalStorage = () => {
-//   return localStorage.getItem(LOCAL_STORAGE_KEY);
-// };
 
 export {
   userLogin,
@@ -153,7 +138,5 @@ export {
   getVentas,
   registrarCompra,
   getPaquetes,
-  // onRemoveUser,
-  // getUserFromLocalStorage,
   LOCAL_STORAGE_KEY
 };
