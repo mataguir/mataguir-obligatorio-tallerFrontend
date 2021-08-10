@@ -13,7 +13,6 @@ const Venta = ({ paquetes, comprarPaquete, idUser }) => {
 
   const onCompraClick = async e =>{
     e.preventDefault()
-    debugger
     if (nombreRef.current.value != '' || cantMayRef.current.value + cantMenRef.current.value != '') {
       if (Number(cantMayRef.current.value) + Number(cantMenRef.current.value) <= 10){
         try {
@@ -24,13 +23,11 @@ const Venta = ({ paquetes, comprarPaquete, idUser }) => {
             cantidadMayores: Number(cantMayRef.current.value),
             cantidadMenores: Number(cantMenRef.current.value)                    
           });
-          debugger
           // setMessage('Compra realizada con exito');
           // setAlertClass('success');
           // setAlertVisibillity(true);
         }
         catch (error) {
-          debugger
           // setMessage(error.message);
           // setAlertClass('danger');
           // setAlertVisibillity(true);             

@@ -8,10 +8,13 @@ import BarChart from './Stats/Charts/Chart';
 import MetricsVentas from './Stats/MetricsVentas/MetricsVentas';
 import VentasList from './VentaList/VentasList';
 import Venta from './Venta/Venta';
+import { useDispatch } from 'react-redux';
+import { onLogoutAction } from '../../store/actions';
 import DestinosPasaj from './Destinos/DetinosPasaj/DestinosPasaj';
 import 'bootstrap-css-only';
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
   const [ventas, setVentas] = useState([])
   const [paquetes, setPaquetes] = useState([]);
   const [precios, setPrecios] = useState([]);
@@ -39,48 +42,15 @@ const Dashboard = () => {
     })()
   }, [])
 
-
-  // useEffect((id) => {
-  //   ;(async () => {
-  //     try {
-  //       const response = await registrarCompra(id);
-  //       debugger
-  //       setVentas(response.ventas);
-  //     } catch (error) {
-  //       alert(error+"SET ventas");
-  //     }
-  //   })()
-  // }, [])
-
   const comprarPaquete = paquete => {
-    try {
-      const response =  registrarCompra(paquete);
-    } 
-    catch (error) {
-      alert(error);
-    }
+    const response =  registrarCompra(paquete)
+    .then(response => {
+      if (response === 401) {
+        dispatch(onLogoutAction());
+        alert('Su sesión a expirado. Por favor inicie sesión nuevamente');
+      }
+    })
   }
-
-  // const setVentaStatus = (action, id) => {
-  //   debugger
-  //   const newList = ventas.map(venta => {
-  //     if (venta.id === id) {
-  //       venta.completed = action
-  //     }
-  //     return venta
-  //   })
-  //   setVentas(newList)
-  // }
-
-  // const getCompleted = () => {
-  //   const completed = todos.filter(todo => todo.completed)
-  //   return completed.length
-  // }
-
-  // const getIncompleted = () => {
-  //   const completed = getCompleted()
-  //   return todos.length - completed
-  // }
 
   const filtrarTop = () => {
     let ventasTop = [];
