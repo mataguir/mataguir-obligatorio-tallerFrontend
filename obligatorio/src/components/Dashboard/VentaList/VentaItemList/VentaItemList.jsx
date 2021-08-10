@@ -10,19 +10,6 @@ const VentaItemList = ({  id, cliente, paquete, cantAdultos, cantNinos, idPaquet
     return precioTotal
   }
 
-  // const calcularPrecio = () => {
-  //   let precioTotal = 0;
-
-  //   ventas.map(venta => {
-  //     const paquete = paquetes.find(p => p.id == venta.id_paquete);
-  //     if(paquete) {
-  //       precioTotal = paquete.precio_menor * venta.cantidad_menores + paquete.precio_mayor * venta.cantidad_mayores;
-  //     }
-  //   })
-  //   debugger
-  //   return precioTotal
-  // }
-
   return (
     <tr>
       <th scope='row'>{id}</th>

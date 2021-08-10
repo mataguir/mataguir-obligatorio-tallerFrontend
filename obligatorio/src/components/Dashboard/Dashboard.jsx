@@ -165,14 +165,16 @@ const Dashboard = () => {
           />
         </div>
       </div>
-      <DestinosTop destinosTop={filtrarTop()}/>
-      <DestinosProm destinosProm={filtrarProm()}/>
       <div className='row col-5'>
+        <h4>Personas por Destino</h4>
         <BarChart destinos={perDest().destinos} cantPasajeros={perDest().pasajeros} />
       </div> 
       <div className='row col-5'>
+        <h4>Precios Destinos</h4>
         <BarChart destinos={precioPromedio().destinos} cantPasajeros={precioPromedio().precios} />
       </div>
+      <DestinosTop destinosTop={filtrarTop()}/>
+      <DestinosProm destinosProm={filtrarProm()}/>
     </div>
   )
 }
