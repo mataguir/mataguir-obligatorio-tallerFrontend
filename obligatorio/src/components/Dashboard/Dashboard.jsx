@@ -138,12 +138,12 @@ const Dashboard = () => {
       <div>
         <div className='row col-12 chart justify-content-around'>
           <h4 className='col-12'>Personas por Destino</h4>
-          <BarChart className='col-6' destinos={perDest().destinos} cantPasajeros={perDest().pasajeros} />
           <DestinosPasaj className='col-6' paquetes={perDest().destinos} cantPasaj={perDest().pasajeros}/>
+          {perDest().destinos && perDest().destinos.length > 0 ? (<BarChart className='col-6' destinos={perDest().destinos} cantPasajeros={perDest().pasajeros} />) : (<h6>Cargando</h6>)}
         </div> 
         <div className='row col-5 chart'>
           <h4>Precios Destinos</h4>
-          <BarChart destinos={precioPromedio().destinos} cantPasajeros={precioPromedio().precios} />
+          {precioPromedio().destinos && precioPromedio().destinos.length > 0 ? (<BarChart destinos={precioPromedio().destinos} cantPasajeros={precioPromedio().precios} />) : (<h6>Cargando</h6>)}
         </div>  
       </div>      
       <DestinosTop destinosTop={filtrarTop()}/>

@@ -125,7 +125,6 @@ const registrarCompra = (data) => {
       }
     })
     .catch((e) => {
-      debugger
       return Promise.reject({
         message: e.message,
       });
