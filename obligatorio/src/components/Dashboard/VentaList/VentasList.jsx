@@ -1,7 +1,6 @@
 import VentaItemList from './VentaItemList/VentaItemList';
 
-const VentasList = ({ ventas, precioFinal }) => {
-  debugger
+const VentasList = ({ ventas, paquetes }) => {
   return (
     <table className='table'>
       <thead>
@@ -23,7 +22,8 @@ const VentasList = ({ ventas, precioFinal }) => {
             paquete={id_paquete}
             cantAdultos={cantidad_mayores}
             cantNinos={cantidad_menores}
-            precioFinal={precioFinal}
+            idPaquete={id_paquete}
+            paquetes={paquetes}
           />
         ))}
       </tbody>

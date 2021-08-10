@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react'
 import Chart from 'react-apexcharts'
 
-const BarChart = ({ completed, incompleted }) => {
+const BarChart = ({ destinos, cantPasajeros }) => {
   const [barData, setData] = useState({
     options: {
       chart: {
         id: 'basic-bar'
       },
       xaxis: {
-        categories: ['Completed', 'Incompleted']
+        categories: destinos
       }
     },
     series: [
       {
         name: 'series-1',
-        data: [completed, incompleted]
+        data: cantPasajeros
       }
     ]
   })
@@ -25,17 +25,17 @@ const BarChart = ({ completed, incompleted }) => {
           id: 'basic-bar'
         },
         xaxis: {
-          categories: ['Completed', 'Incompleted']
+          categories: destinos
         }
       },
       series: [
         {
           name: 'series-1',
-          data: [completed, incompleted]
+          data: cantPasajeros
         }
       ]
     })
-  }, [completed, incompleted])
+  }, cantPasajeros)
 
   return (
     <Chart

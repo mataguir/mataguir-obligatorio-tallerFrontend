@@ -1,18 +1,16 @@
-const DestinosTop = ({ ventas, setDestinoStatus }) => {
-  debugger
+const DestinosTop = ({ destinosTop }) => {
+
   return (
     <table className='table'>
       <thead>
         <tr>
-          <th>#</th>
           <th>Destino</th>
           <th>Cant Ventas</th>
         </tr>
       </thead>
       <tbody>
-        {ventas.map(({ id, destino, cantVentas}) => (
+        {destinosTop.map(({ destino, cantVentas}) => (
           <tr>
-            <th scope='row'>{id}</th>
             <td>{destino}</td>
             <td>{cantVentas}</td>
           </tr>
@@ -23,4 +21,4 @@ const DestinosTop = ({ ventas, setDestinoStatus }) => {
   )
 }
 
-export default DestinosTop
+export default DestinosTop;

@@ -1,4 +1,27 @@
-const VentaItemList = ({  id, cliente, paquete, cantAdultos, cantNinos, precio }) => {
+const VentaItemList = ({  id, cliente, paquete, cantAdultos, cantNinos, idPaquete, paquetes }) => {
+
+  const calcularPrecio = () => {
+    let precioTotal = 0;
+
+    const paquete = paquetes.find(p => p.id == idPaquete);
+    if(paquete) {
+      precioTotal = paquete.precio_menor * cantNinos + paquete.precio_mayor * cantAdultos;
+    }
+    return precioTotal
+  }
+
+  // const calcularPrecio = () => {
+  //   let precioTotal = 0;
+
+  //   ventas.map(venta => {
+  //     const paquete = paquetes.find(p => p.id == venta.id_paquete);
+  //     if(paquete) {
+  //       precioTotal = paquete.precio_menor * venta.cantidad_menores + paquete.precio_mayor * venta.cantidad_mayores;
+  //     }
+  //   })
+  //   debugger
+  //   return precioTotal
+  // }
 
   return (
     <tr>
@@ -7,9 +30,7 @@ const VentaItemList = ({  id, cliente, paquete, cantAdultos, cantNinos, precio }
       <td>{paquete}</td>
       <td>{cantAdultos}</td>
       <td>{cantNinos}</td>
-      <td>{precio}</td>
-      <td>
-      </td>
+      <td>{calcularPrecio()}</td>
     </tr>
   )
 }
