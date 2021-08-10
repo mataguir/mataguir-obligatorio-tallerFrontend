@@ -1,3 +1,4 @@
+import DestinosPasajItem from "./DetinosPasajItem/DestinosPasajItem"
 const DestinosPasaj = ({ paquetes, cantPasaj }) => {
     return (
       <section className='d-flex flex-md justify-content-center ventas-list'>
@@ -9,13 +10,12 @@ const DestinosPasaj = ({ paquetes, cantPasaj }) => {
               <th>Cantidad de clientes</th>       
             </tr>
           </thead>
-          <tbody>
-            {paquetes.forEach(nom => {
-                <td>{nom}</td>
-            })}
-            {cantPasaj.forEach(num => {
-                <td>{num}</td>
-            })}
+          <tbody>            
+            {
+              paquetes.map(function(object, i){
+                return ( <DestinosPasajItem paquete={object} clientes={cantPasaj[i]} />)
+              } )   
+            }   
           </tbody>
         </table>
       </section>
